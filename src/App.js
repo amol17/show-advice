@@ -5,7 +5,20 @@ import "./App.css";
 const App = () => {
   const [advice, setAdvice] = useState("");
 
-  function getAdvice() {
+  const getAdvice = (hideButt = true) => {
+    if (hideButt) {
+      var myButton = document.getElementById("buttonHide");
+      // var myImage= document.getElementById('myImage');
+
+      myButton.style.display = "none";
+      // myImage.style.display ='inline';
+
+      setTimeout(function () {
+        myButton.style.display = "inline";
+        //myImage.style.display ='none';
+      }, 5000);
+    }
+
     const URL = "https://api.adviceslip.com/advice";
     axios
       .get(URL)
@@ -16,17 +29,17 @@ const App = () => {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   useEffect(() => {
-    getAdvice();
+    getAdvice(false);
   }, []);
 
   return (
     <div className="app">
       <div className="card">
         <h1 className="heading">{advice}</h1>
-        <button className="button" onClick={getAdvice}>
+        <button className="button" id="buttonHide" onClick={getAdvice}>
           <span>GIVE ME ADVICE!</span>
         </button>
       </div>
